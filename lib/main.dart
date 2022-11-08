@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/second': (context) => QuizzScreen(),
+        '/quizz': (context) => QuizzScreen(),
       },
     );
   }
@@ -67,12 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemBuilder: (BuildContext context, int index) {
                       return ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MenuUseCase()
-                                      .getScreen(menu[index].route)),
-                            );
+                            Navigator.pushNamed(context, menu[index].route);
                           },
                           child: Text(menu[index].text));
                     }))

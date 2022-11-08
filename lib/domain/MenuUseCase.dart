@@ -11,15 +11,4 @@ class MenuUseCase {
     var menu = repo.getMenu().sublist(0, 2);
     return menu;
   }
-
-  Widget getScreen(MenuItemModel menuItem) {
-    switch (menuItem.text) {
-      case "quizz":
-        QuizzScreen();
-        break;
-      default:
-        QuizzScreen();
-        break;
-    }
-  }
 }
