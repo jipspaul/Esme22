@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/models/Question.dart';
+import 'package:flutter_application_1/domain/QuestionManager.dart';
 
-class QuizzScreen extends StatelessWidget {
+class QuizzScreen extends StatefulWidget {
+  @override
+  State<QuizzScreen> createState() => _QuizzScreenState();
+}
+
+class _QuizzScreenState extends State<QuizzScreen> {
+  QuestionManager questionManager = QuestionManager();
+
   @override
   Widget build(BuildContext context) {
+    Question question = questionManager.getCurrentQuestion();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('QUIZZ'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
+          child: Column(
+        children: [
+          Flexible(
+              flex: 1,
+              child: Text(
+                question.question,
+                style: TextStyle(fontSize: 50),
+              )),
+          Flexible(flex: 1, child: Image.network(question.data)),
+          Flexible(
+              flex: 2,
+              child: ListView.builder(
+                  itemCount: question.responses.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ElevatedButton(
+                        onPressed: () {
+                          questionManager.submitResponse(
+                              question.responses.keys.elementAt(index));
+                          setState(() {});
+                        },
+                        child: Text(question.responses.keys.elementAt(index)));
+                  }))
+        ],
+      )),
     );
   }
 }
