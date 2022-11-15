@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/DidYouKnowUseCase.dart';
 import 'package:flutter_application_1/domain/MenuUseCase.dart';
+import 'package:flutter_application_1/ui/Maps.dart';
 import 'package:flutter_application_1/ui/QuizzScreen.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/quizz': (context) => QuizzScreen(),
+        '/maps': (context) => WebMap(),
       },
     );
   }
