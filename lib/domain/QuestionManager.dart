@@ -7,6 +7,7 @@ class QuestionManager {
   List<Question> _questions;
   int _index; //current question index
   int _score;
+  bool isPartyFinish = false;
 
   QuestionManager() {
     IQuestionRepo questionRepo = MockQuestionRepo();
@@ -28,10 +29,17 @@ class QuestionManager {
       _score++;
       if (_index < _questions.length - 1) {
         _index++;
+      } else {
+        isPartyFinish = true;
       }
+
       return true;
     } else {
       return false;
     }
+  }
+
+  String getScore() {
+    return _score.toString();
   }
 }
