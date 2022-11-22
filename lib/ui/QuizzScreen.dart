@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
+import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
 
 class QuizzScreen extends StatefulWidget {
@@ -9,9 +10,12 @@ class QuizzScreen extends StatefulWidget {
 
 class _QuizzScreenState extends State<QuizzScreen> {
   QuestionManager questionManager = QuestionManager();
+  var t = MockQuestionRepo();
 
   @override
   Widget build(BuildContext context) {
+    print(t.getQuestionAsync());
+
     Question question = questionManager.getCurrentQuestion();
 
     return questionManager.isPartyFinish

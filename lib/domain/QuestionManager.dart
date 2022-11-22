@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/data/models/ListQuestions.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/data/repositories/IQuestionRepo.dart';
 import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
@@ -13,6 +14,7 @@ class QuestionManager {
     IQuestionRepo questionRepo = MockQuestionRepo();
 
     _questions = questionRepo.getQuestion();
+    print(ListQuestions(_questions).toJson().entries);
     _index = 0;
     _score = 0;
   }
