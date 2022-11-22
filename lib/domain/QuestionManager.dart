@@ -4,9 +4,9 @@ import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
 import 'package:flutter_application_1/domain/QuestionUseCase.dart';
 
 class QuestionManager {
-  List<Question> _questions;
-  int _index; //current question index
-  int _score;
+  late List<Question> _questions;
+  int? _index; //current question index
+  int? _score = 0;
   bool isPartyFinish = false;
 
   QuestionManager() {
@@ -18,17 +18,17 @@ class QuestionManager {
   }
 
   Question getCurrentQuestion() {
-    return _questions[_index];
+    return _questions[_index!];
   }
 
   bool submitResponse(String response) {
     bool isCorrect =
-        QuestionUseCase().isCorrectAnswer(getCurrentQuestion(), response);
+        QuestionUseCase().isCorrectAnswer(getCurrentQuestion(), response)!;
 
     if (isCorrect) {
-      _score++;
-      if (_index < _questions.length - 1) {
-        _index++;
+      _score = _score! + 1;
+      if (_index! < _questions.length - 1) {
+        _index = _index! + 1;
       } else {
         isPartyFinish = true;
       }

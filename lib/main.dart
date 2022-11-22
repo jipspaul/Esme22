@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/DidYouKnowUseCase.dart';
 import 'package:flutter_application_1/domain/MenuUseCase.dart';
-import 'package:flutter_application_1/ui/Maps.dart';
+import 'package:flutter_application_1/ui/maps/Maps.dart';
 import 'package:flutter_application_1/ui/QuizzScreen.dart';
 
 void main() {
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: Center(
         child: Column(

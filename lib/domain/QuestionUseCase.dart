@@ -13,7 +13,7 @@ class QuestionUseCase {
     return menu;
   }
 
-  bool isCorrectAnswer(Question question, String response) {
+  bool? isCorrectAnswer(Question question, String response) {
     return question.responses[response];
   }
 }

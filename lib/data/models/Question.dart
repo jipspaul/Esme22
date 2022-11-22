@@ -1,10 +1,20 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'question.g.dart';
+
+@JsonSerializable()
 class Question {
   final String question; //ex: Which country?
   final data;
-  final QuestionType type;
+  final String type;
   final Map<String, bool> responses;
 
   Question(this.question, this.data, this.type, this.responses);
+
+  factory Question.fromJson(Map<String, dynamic> json) =>
+      _$QuestionFromJson(json);
+  Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }
 
-enum QuestionType { IMAGE, TEXT, AUDIO, VIDEO }
+
+//enum QuestionType { IMAGE, TEXT, AUDIO, VIDEO }

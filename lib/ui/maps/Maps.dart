@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps/google_maps.dart';
 import 'dart:ui' as ui;
 
-import 'AbstractMap.dart';
+import '../AbstractMap.dart';
 
 Widget getMap() {
   String htmlId = "7";
@@ -37,7 +37,7 @@ Widget getMap() {
 }
 
 class WebMap extends StatefulWidget implements MapWidget {
-  WebMap({Key key}) : super(key: key);
+  WebMap({Key? key}) : super(key: key);
 
   @override
   State<WebMap> createState() => WebMapState();
