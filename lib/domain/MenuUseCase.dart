@@ -1,6 +1,3 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/ui/QuizzScreen.dart';
-
 import '../data/models/MenuItem.dart';
 import '../data/repositories/IMenuRepo.dart';
 import '../data/repositories/MockMenuRepo.dart';
