@@ -5,16 +5,12 @@ import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
 import 'package:flutter_application_1/domain/QuestionUseCase.dart';
 
 class QuestionManager {
-  late List<Question> _questions;
+  List<Question> _questions = [];
   int? _index; //current question index
   int? _score = 0;
   bool isPartyFinish = false;
 
   QuestionManager() {
-    IQuestionRepo questionRepo = MockQuestionRepo();
-
-    _questions = questionRepo.getQuestion();
-    print(ListQuestions(_questions).toJson().entries);
     _index = 0;
     _score = 0;
   }
@@ -43,5 +39,9 @@ class QuestionManager {
 
   String getScore() {
     return _score.toString();
+  }
+
+  loadData() async {
+    _questions = await MockQuestionRepo().getQuestionAsync();
   }
 }

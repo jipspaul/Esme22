@@ -1,16 +1,26 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/data/models/ListQuestions.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/data/repositories/IQuestionRepo.dart';
+import 'package:universal_html/js.dart';
 
 import '../models/MenuItem.dart';
 import 'IMenuRepo.dart';
 
 class MockQuestionRepo implements IQuestionRepo {
-  Future<String> getQuestionAsync() async {
-    String textasset = "text/json.txt"; //path to text file asset
+  Future<List<Question>> getQuestionAsync() async {
+    String textasset = "assets/txt/json.txt"; //path to text file asset
     String text = await rootBundle.loadString(textasset);
     print(text);
-    return text;
+    var json = jsonDecode(text);
+    List<Question> questions = [];
+    for (var entry in json) {
+      questions.add(Question.fromJson(entry));
+    }
+    return questions;
   }
 
   @override
