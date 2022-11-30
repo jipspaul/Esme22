@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//TODO ==> LOGO APP à ajouter
-
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -18,6 +16,16 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Text(
+                  "GeoLearn",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    color: Color(0xFF3A736A),
+                  ),
+                ),
+                const SizedBox(height: 5),
                 Opacity(
                   opacity: 0.925,
                   child: SizedBox(
@@ -28,24 +36,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
-                Flexible(
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: Container(),
-                      ),
-                      Flexible(
-                        flex: 8,
-                        child: Row(),
-                      ),
-                      Flexible(
-                        child: Container(),
-                      ),
-                    ],
+                const SizedBox(height: 50),
+                Text(
+                  "Projet en cours de développement sur un autre GitHub.\nVous y serez convié prochainement.\n\nGroupe de Projet 3S4",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
-                // const SizedBox(height: 15),
               ],
             ),
           ),
