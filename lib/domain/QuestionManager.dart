@@ -22,7 +22,9 @@ class QuestionManager {
   Question getCurrentQuestion() {
     return _questions[_index!];
   }
-
+  int getlenght() {
+    return _questions.length;
+  }
   bool submitResponse(String response) {
     bool isCorrect =
         QuestionUseCase().isCorrectAnswer(getCurrentQuestion(), response)!;
