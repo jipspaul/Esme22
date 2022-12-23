@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
+import 'package:flutter_application_1/domain/CheckBoxStateManagerSendQuizz.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
 import 'package:flutter_application_1/data/repositories/IQuestionRepo.dart';
-
+import 'package:flutter_application_1/data/repositories/MockQuizzNotification.dart';
 class QuizzEnvoieScreen extends StatefulWidget {
   @override
   State<QuizzEnvoieScreen> createState() => _QuizzEnvoieScreenState();
@@ -11,10 +12,17 @@ class QuizzEnvoieScreen extends StatefulWidget {
 
 class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
   QuestionManager questionManager = QuestionManager();
-  bool isChecked = false;
+  MockQuizzNotification notifications=MockQuizzNotification();
+
+  List<CheckBoxStateManagerSendQuizz> notifications2 = MockQuizzNotification().getlistenotification();
+  /*final notifications = [
+    CheckBoxStateManagerSendQuizz(title: 'france'),
+    CheckBoxStateManagerSendQuizz(title: 'suisse'),
+  ];*/
+
   @override
   Widget build(BuildContext context) {
-    Question question = questionManager.getCurrentQuestion();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Envoiedequizz'),
@@ -22,34 +30,18 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
       body: Center(
         child: Column(
           children: [
-            TextButton(
-              onPressed: () {
-                // Save the text in the text fields
-              },
-              child: Text("Save"),
-            ),
-            Divider(
-              height: 50,
-              color: Colors.blue,
-              thickness: 5,
-            ),
-            Flexible(
-                flex: 2,
-                child: ListView.builder(
-                    itemCount: questionManager.getlenght(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Checkbox(
-                        value: false,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = value!;
-                          });
-                        },
-                      );
-                    })),
+
+            ...notifications2.map(buildSingleCheckbox).toList(),
           ],
         ),
       ),
     );
   }
+
+  Widget buildSingleCheckbox(CheckBoxStateManagerSendQuizz checkBox) => CheckboxListTile(
+        value: checkBox.value,
+        title: Text(checkBox.title, style: TextStyle(fontSize: 20)),
+        onChanged: (value) => setState(() => checkBox.value = value!),
+      );
+
 }

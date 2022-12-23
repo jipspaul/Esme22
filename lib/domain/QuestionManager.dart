@@ -18,7 +18,9 @@ class QuestionManager {
     _index = 0;
     _score = 0;
   }
-
+  List<Question> getlistequestion(){
+    return _questions;
+  }
   Question getCurrentQuestion() {
     return _questions[_index!];
   }
