@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/models/Question.dart';
-import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
+
 import 'package:flutter_application_1/domain/CheckBoxStateManagerSendQuizz.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
-import 'package:flutter_application_1/data/repositories/IQuestionRepo.dart';
 import 'package:flutter_application_1/data/repositories/MockQuizzNotification.dart';
 class QuizzEnvoieScreen extends StatefulWidget {
   @override
@@ -12,14 +10,9 @@ class QuizzEnvoieScreen extends StatefulWidget {
 
 class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
   QuestionManager questionManager = QuestionManager();
+  final allcheckbox = CheckBoxStateManagerSendQuizz(title: 'select all choose');
   MockQuizzNotification notifications=MockQuizzNotification();
-
   List<CheckBoxStateManagerSendQuizz> notifications2 = MockQuizzNotification().getlistenotification();
-  /*final notifications = [
-    CheckBoxStateManagerSendQuizz(title: 'france'),
-    CheckBoxStateManagerSendQuizz(title: 'suisse'),
-  ];*/
-
   @override
   Widget build(BuildContext context) {
 
@@ -30,7 +23,8 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
       body: Center(
         child: Column(
           children: [
-
+            buildgroupCheckbox(allcheckbox),
+            Divider(color: Colors.blue),
             ...notifications2.map(buildSingleCheckbox).toList(),
           ],
         ),
@@ -41,7 +35,25 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
   Widget buildSingleCheckbox(CheckBoxStateManagerSendQuizz checkBox) => CheckboxListTile(
         value: checkBox.value,
         title: Text(checkBox.title, style: TextStyle(fontSize: 20)),
-        onChanged: (value) => setState(() => checkBox.value = value!),
+        onChanged: (value) => setState(() {
+          checkBox.value = value!;
+          allcheckbox.value=
+              notifications2.every((element) => element.value == true);
+        }),
       );
 
+
+
+  Widget buildgroupCheckbox(CheckBoxStateManagerSendQuizz checkBox) => CheckboxListTile(
+    value: checkBox.value,
+    title: Text(checkBox.title, style: TextStyle(fontSize: 20)),
+    onChanged: toggleGroupChexbox,
+  );
+  void toggleGroupChexbox(bool? value){
+    if (value == null)return;
+    setState(() {
+      allcheckbox.value=value;
+      notifications2.forEach((element) => element.value=value);
+    });
+  }
 }
