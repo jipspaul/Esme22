@@ -14,6 +14,11 @@ class Question {
   factory Question.fromJson(Map<String, dynamic> json) =>
       _$QuestionFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
+
+  @override
+  String toString() {
+    return 'Question{question: $question, data: $data, type: $type, responses: $responses}';
+  }
 }
 
 
