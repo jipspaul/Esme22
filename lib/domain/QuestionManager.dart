@@ -14,7 +14,7 @@ class QuestionManager {
     IQuestionRepo questionRepo = MockQuestionRepo();
 
     _questions = questionRepo.getQuestion();
-    print(ListQuestions(_questions).toJson().entries);
+    // print(ListQuestions(_questions).toJson().entries);
     _index = 0;
     _score = 0;
   }

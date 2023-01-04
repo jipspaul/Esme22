@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/models/ListQuestions.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/domain/CheckBoxStateManagerSendQuizz.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
@@ -39,8 +40,9 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                   ? () {
                       //if buttonenabled == true then pass a function otherwise pass "null"
                       print("Elevated Button One pressed");
-                      List<Question> listequestionchoisit = MockQuizzNotification().getlistechoit(listequestionselectionner);
-                      print(listequestionchoisit);
+                      ListQuestions listequestionchoisit= new ListQuestions(MockQuizzNotification().getlistechoit(listequestionselectionner));
+                      // List<Question> listequestionchoisit = MockQuizzNotification().getlistechoit(listequestionselectionner);
+                      print(listequestionchoisit.toJson());
               }
                   : null,
             ),
@@ -70,7 +72,6 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
           } else {
             listequestionselectionner.remove(checkBox.title);
           }
-          print(listequestionselectionner);
           allcheckbox.value =
               notifications2.every((element) => element.value == true);
         }),
@@ -95,7 +96,6 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
       } else {
         listequestionselectionner.clear();
       }
-      print(listequestionselectionner);
     });
   }
 }

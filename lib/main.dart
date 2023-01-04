@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/DidYouKnowUseCase.dart';
 import 'package:flutter_application_1/domain/MenuUseCase.dart';
-import 'package:flutter_application_1/ui/blue/BluetoothSendingScreen.dart';
 import 'package:flutter_application_1/ui/QuizzScreen.dart';
 import 'package:flutter_application_1/ui/maps/mapsMobile.dart';
 import 'package:flutter_application_1/ui/QuizzEnvoieScreen.dart';
-
+import 'package:flutter_application_1/ui/authentification/authentification.dart';
 void main() {
   runApp(MyApp());
 }
@@ -24,8 +23,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/quizz': (context) => QuizzScreen(),
         '/maps': (context) => MapSample(),
-        '/bluetooth': (context) => BluetoothSendingScreen(),
         '/EnvoyerQuizz': (context) => QuizzEnvoieScreen(),
+        '/autentification' : (context) =>Autenticate(),
       },
     );
   }

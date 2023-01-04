@@ -9,8 +9,7 @@ part of 'ListQuestions.dart';
 ListQuestions _$ListQuestionsFromJson(Map<String, dynamic> json) =>
     ListQuestions(
       (json['questionsList'] as List<dynamic>)
-          .map((e) => Question.fromJson(e as Map<String, dynamic>))
-          .toList(),
+          .map((e) => Question.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
 Map<String, dynamic> _$ListQuestionsToJson(ListQuestions instance) =>

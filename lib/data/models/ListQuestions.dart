@@ -9,7 +9,6 @@ class ListQuestions {
   List<Question> questionsList;
   ListQuestions(this.questionsList);
 
-  factory ListQuestions.fromJson(Map<String, dynamic> json) =>
-      _$ListQuestionsFromJson(json);
+  factory ListQuestions.fromJson(Map<String, dynamic> json) => _$ListQuestionsFromJson(json);
   Map<String, dynamic> toJson() => _$ListQuestionsToJson(this);
 }

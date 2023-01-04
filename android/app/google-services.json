@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882840692662",
+    "project_id": "projetandroidstudiophibaptalex",
+    "storage_bucket": "projetandroidstudiophibaptalex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882840692662:android:728bef38bd5b4b49288317",
+        "android_client_info": {
+          "package_name": "com.philippe.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882840692662-b965s985uuvn187fi1k6mntss45gh6p7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBET8Dm4Kb2DTuHCAW1WqfNkH1Pk3EDDMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882840692662-b965s985uuvn187fi1k6mntss45gh6p7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

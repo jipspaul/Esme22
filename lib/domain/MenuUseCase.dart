@@ -8,7 +8,7 @@ import '../data/repositories/MockMenuRepo.dart';
 class MenuUseCase {
   List<MenuItemModel> getMenu() {
     IMenuRepo repo = MockMenuRepo();
-    var menu = repo.getMenu().sublist(0, 4);
+    var menu = repo.getMenu().sublist(0, 5);
     return menu;
   }
 }
