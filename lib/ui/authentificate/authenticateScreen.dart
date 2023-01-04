@@ -40,17 +40,36 @@ class _AuthentificationState extends State<Authentification> {
             obscureText: true,
           ),
           ElevatedButton(
-            child: Text('login', style: TextStyle(fontSize: 20)),
-            onPressed: signIn,
-          ),
+              child: Text('login', style: TextStyle(fontSize: 20)),
+              onPressed: () async {
+                bool success = await signIn();
+                if (success) {
+                  // Sign-in was successful
+                  Navigator.pushNamed(context, "/EnvoyerQuizz");
+                  FirebaseAuth.instance.authStateChanges();
+                } else {
+                  Navigator.pushNamed(context, "/"); // Sign-in failed
+                }
+              }
+              //(signIn ?)(){
+              //if buttonenabled == true then pass a function otherwise pass "null"
+
+              //},
+              ),
         ]),
       ),
     );
   }
+
 //Navigator.pushNamed(context, "/");
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+  Future<bool> signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

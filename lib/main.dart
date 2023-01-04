@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/DidYouKnowUseCase.dart';
 import 'package:flutter_application_1/domain/MenuUseCase.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_application_1/ui/QuizzEnvoieScreen.dart';
 import 'package:flutter_application_1/ui/authentificate/authenticateScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future main() async{
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -28,7 +29,20 @@ class MyApp extends StatelessWidget {
         '/quizz': (context) => QuizzScreen(),
         '/maps': (context) => MapSample(),
         '/EnvoyerQuizz': (context) => QuizzEnvoieScreen(),
-        '/authentification' : (context) =>Authentification(),
+        '/authentification' : (context) =>Scaffold(
+          body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData)
+              {
+                return QuizzEnvoieScreen();
+              }
+              else {
+                return Authentification();
+              }
+            },
+          ),
+        ),
       },
     );
   }
@@ -37,17 +51,20 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, this.title}) : super(key: key);
   final String? title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var menu = MenuUseCase().getMenu();
@@ -75,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: Text(menu[index].text));
                     }))
+
+
           ],
         ),
       ),

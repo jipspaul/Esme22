@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/domain/CheckBoxStateManagerSendQuizz.dart';
@@ -33,6 +34,12 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                 "Sélectionne les questions que tu souhaites envoyer et appuie sur le bouton 'Sauvegarder'.",
                 textAlign: TextAlign.left),
             Divider(color: Colors.blue),
+            ElevatedButton(
+              child: Text('disconect', style: TextStyle(fontSize: 20)),
+              onPressed: () { FirebaseAuth.instance.signOut();
+              Navigator.pushNamed(context, "/");
+              }
+            ),
             ElevatedButton(
               child: Text('Sauvegarder', style: TextStyle(fontSize: 20)),
               onPressed: (listequestionselectionner.length > 0)
