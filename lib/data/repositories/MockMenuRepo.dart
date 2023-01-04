@@ -7,8 +7,8 @@ class MockMenuRepo implements IMenuRepo {
     return [
       MenuItemModel("Quizz", "/quizz"),
       MenuItemModel("Map", "/maps"),
-      MenuItemModel("Projet", "/bluetooth"),
-      MenuItemModel("EnvoyerQuizz", "/EnvoyerQuizz")
+      MenuItemModel("Authentification", "/authentification"),
+      MenuItemModel("EnvoyerQuizz", "/EnvoyerQuizz"),
     ];
   }
 }

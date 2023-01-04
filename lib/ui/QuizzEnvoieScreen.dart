@@ -41,6 +41,7 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                       print("Elevated Button One pressed");
                       List<Question> listequestionchoisit = MockQuizzNotification().getlistechoit(listequestionselectionner);
                       print(listequestionchoisit);
+                      Navigator.pushNamed(context, "/");
               }
                   : null,
             ),

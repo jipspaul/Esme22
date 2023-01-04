@@ -4,8 +4,12 @@ import 'package:flutter_application_1/domain/MenuUseCase.dart';
 import 'package:flutter_application_1/ui/QuizzScreen.dart';
 import 'package:flutter_application_1/ui/maps/mapsMobile.dart';
 import 'package:flutter_application_1/ui/QuizzEnvoieScreen.dart';
+import 'package:flutter_application_1/ui/authentificate/authenticateScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -24,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/quizz': (context) => QuizzScreen(),
         '/maps': (context) => MapSample(),
         '/EnvoyerQuizz': (context) => QuizzEnvoieScreen(),
+        '/authentification' : (context) =>Authentification(),
       },
     );
   }
