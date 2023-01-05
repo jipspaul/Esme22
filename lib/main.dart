@@ -30,8 +30,9 @@ class MyApp extends StatelessWidget {
         '/quizz': (context) => QuizzScreen(),
         '/maps': (context) => MapSample(),
         '/EnvoyerQuizz': (context) => QuizzEnvoieScreen(),
-        '/receptionquizzScreen':(context) => receptionquizzScreen(),
-        '/authentification' : (context) =>Scaffold(
+        '/receptionquizzScreen': (context) => receptionquizzScreen(),
+        '/authentification': (context) => Authentification(),
+        /*'/authentification' : (context) =>Scaffold(
           body: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
               }
             },
           ),
-        ),
+        ),*/
       },
     );
   }
@@ -84,18 +85,62 @@ class _MyHomePageState extends State<MyHomePage> {
                   DidYouKnowUseCase().getTodayDidYouKnow(),
                 )),
             Flexible(
-                flex: 3,
-                child: ListView.builder(
-                    itemCount: menu.length,
+              flex: 3,
+              child: StreamBuilder<User?>(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  // Vérifiez si l'utilisateur est connecté avant d'afficher le bouton
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: menu.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, menu[index].route);
+                            },
+                            child: Text(menu[index].text));
+                      },
+                    );
+                  }
+                  // Si l'utilisateur n'est pas connecté, retournez un widget vide
+                  return ListView.builder(
+                    itemCount: 2,
                     itemBuilder: (BuildContext context, int index) {
                       return ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, menu[index].route);
                           },
                           child: Text(menu[index].text));
-                    }))
-
-
+                    },
+                  );
+                },
+              ),
+            ),
+            Flexible(
+              child: StreamBuilder<User?>(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  // Vérifiez si l'utilisateur est connecté avant d'afficher le bouton
+                  if (snapshot.hasData) {
+                    return ElevatedButton(
+                        child: Text('Se déconnecter',
+                            style: TextStyle(fontSize: 20)),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushNamed(context, "/");
+                        });
+                  }
+                  // Si l'utilisateur n'est pas connecté, retournez un widget vide
+                  return ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/authentification');
+                      // Le code à exécuter quand le bouton est cliqué
+                    },
+                    child: Text('Se connecter'),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

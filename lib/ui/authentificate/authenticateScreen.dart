@@ -45,7 +45,7 @@ class _AuthentificationState extends State<Authentification> {
                 bool success = await signIn();
                 if (success) {
                   // Sign-in was successful
-                  Navigator.pushNamed(context, "/EnvoyerQuizz");
+                  Navigator.pushNamed(context, "/");
                   FirebaseAuth.instance.authStateChanges();
                 } else {
                   Navigator.pushNamed(context, "/"); // Sign-in failed

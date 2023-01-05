@@ -7,7 +7,6 @@ class receptionquizzScreen extends StatefulWidget {
 
 class _receptionquizzScreenState extends State<receptionquizzScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
