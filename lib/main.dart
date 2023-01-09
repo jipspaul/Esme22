@@ -15,6 +15,7 @@ Future main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -125,6 +126,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: Text('Se connecter'),
                   );
+                },
+              ),
+            ),
+            Flexible(
+              child: StreamBuilder<User?>(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  // Vérifiez si l'utilisateur est connecté avant d'afficher le bouton
+                  if (snapshot.hasData) {
+                    return Text("");
+                  }
+                  // Si l'utilisateur n'est pas connecté, retournez un widget vide
+                  else {
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signups');
+                        // Le code à exécuter quand le bouton est cliqué
+                      },
+                      child: Text("S'inscrire"),
+                    );
+                  }
                 },
               ),
             ),

@@ -12,6 +12,7 @@ class _signupsState extends State<signups> {
   final passwordSameController = TextEditingController();
   late String _errorMessage = ""; // Nouvelle variable d'instance
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  bool isLooding = false;
 
   @override
   void dispose() {
@@ -21,7 +22,6 @@ class _signupsState extends State<signups> {
   }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('inscription'),
@@ -60,8 +60,13 @@ class _signupsState extends State<signups> {
               ),
               // Mise à jour de _errorMessage lorsque l'utilisateur saisit du texte
               ElevatedButton(
-                  child: Text("S'inscire", style: TextStyle(fontSize: 20)),
+                  child: isLooding
+                      ? CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : Text("S'inscrire", style: TextStyle(fontSize: 20)),
                   onPressed: () async {
+                    setState(() => isLooding = true);
                     if (passwordController.text.trim() ==
                         passwordSameController.text.trim()) {
                       try {
@@ -76,7 +81,6 @@ class _signupsState extends State<signups> {
                         );
                         _errorMessage = "";
                         Navigator.pushNamed(context, "/");
-
                       } on FirebaseAuthException catch (error) {
                         _errorMessage = error.message!;
                       }
@@ -84,7 +88,7 @@ class _signupsState extends State<signups> {
                       _errorMessage =
                           "les deux mot de passe ne sont pas similaire";
                     }
-                    setState(() {});
+                    setState(() => isLooding = false);
                   })
             ],
           ),

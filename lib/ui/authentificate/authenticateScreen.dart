@@ -12,7 +12,7 @@ class _AuthentificationState extends State<Authentification> {
   final passwordController = TextEditingController();
   late String _errorMessage = ""; // Nouvelle variable d'instance
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
+  bool isLooding =false;
 
   @override
   void dispose() {
@@ -54,8 +54,9 @@ class _AuthentificationState extends State<Authentification> {
               ),
               // Mise à jour de _errorMessage lorsque l'utilisateur saisit du texte
               ElevatedButton(
-                  child: Text('login', style: TextStyle(fontSize: 20)),
+                  child: isLooding ? CircularProgressIndicator(color: Colors.white,) : Text('login', style: TextStyle(fontSize: 20)),
                   onPressed: () async {
+                    setState(()=>isLooding=true );
                     try {
                       await FirebaseAuth.instance.signInWithEmailAndPassword(
                         email: emailController.text.trim(),
@@ -67,7 +68,7 @@ class _AuthentificationState extends State<Authentification> {
                       _errorMessage = error.message!;
                     };
 
-                    setState(() {});
+                    setState(()=>isLooding=false);
                   }),
               SizedBox(height: 24),
               RichText(
