@@ -1,18 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class Authentification extends StatefulWidget {
+class signups extends StatefulWidget {
   @override
-  State<Authentification> createState() => _AuthentificationState();
+  State<signups> createState() => _signupsState();
 }
 
-class _AuthentificationState extends State<Authentification> {
+class _signupsState extends State<signups> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordSameController = TextEditingController();
   late String _errorMessage = ""; // Nouvelle variable d'instance
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
 
   @override
   void dispose() {
@@ -22,9 +21,10 @@ class _AuthentificationState extends State<Authentification> {
   }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Authentification'),
+        title: const Text('inscription'),
       ),
       body: Form(
         key: _key,
@@ -33,7 +33,7 @@ class _AuthentificationState extends State<Authentification> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Utilisez le constructeur Column au lieu de ListView
-              Text("Authentification",
+              Text("inscription",
                   textAlign: TextAlign.center, style: TextStyle(fontSize: 25)),
               TextFormField(
                 controller: emailController,
@@ -47,45 +47,45 @@ class _AuthentificationState extends State<Authentification> {
                   hintText: 'Mot de passe',
                 ),
                 validator: validatePassword,
-                obscureText: true,
+              ),
+              TextFormField(
+                controller: passwordSameController,
+                decoration: InputDecoration(
+                  hintText: 'Confirmer Mot de passe',
+                ),
+                validator: validatePassword,
               ),
               Center(
                 child: Text(_errorMessage, style: TextStyle(color: Colors.red)),
               ),
               // Mise à jour de _errorMessage lorsque l'utilisateur saisit du texte
               ElevatedButton(
-                  child: Text('login', style: TextStyle(fontSize: 20)),
+                  child: Text("S'inscire", style: TextStyle(fontSize: 20)),
                   onPressed: () async {
-                    try {
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      );
-                      _errorMessage = "";
-                      Navigator.pushNamed(context, "/");
-                    } on FirebaseAuthException catch (error) {
-                      _errorMessage = error.message!;
-                    };
+                    if (passwordController.text.trim() ==
+                        passwordSameController.text.trim()) {
+                      try {
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                        _errorMessage = "";
+                        Navigator.pushNamed(context, "/");
 
+                      } on FirebaseAuthException catch (error) {
+                        _errorMessage = error.message!;
+                      }
+                    } else {
+                      _errorMessage =
+                          "les deux mot de passe ne sont pas similaire";
+                    }
                     setState(() {});
-                  }),
-              SizedBox(height: 24),
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.black),
-                  text: 'no account ? ',
-                  children: [
-                    TextSpan(
-                      text: 'sign up',
-                      recognizer: TapGestureRecognizer()..onTap = () {
-                        Navigator.pushNamed(context, '/signups');
-                      },
-                      style: TextStyle(color: Theme.of(context).colorScheme.secondary,
-                          decoration: TextDecoration.underline),
-                    )
-                  ],
-                ),
-              ),
+                  })
             ],
           ),
         ),

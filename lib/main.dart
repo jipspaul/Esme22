@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/DidYouKnowUseCase.dart';
 import 'package:flutter_application_1/domain/MenuUseCase.dart';
 import 'package:flutter_application_1/ui/QuizzScreen.dart';
+import 'package:flutter_application_1/ui/authentificate/signUpScreen.dart';
 import 'package:flutter_application_1/ui/maps/mapsMobile.dart';
 import 'package:flutter_application_1/ui/QuizzEnvoieScreen.dart';
 import 'package:flutter_application_1/ui/receptionquizz/receptionquizzScreen.dart';
@@ -14,7 +15,6 @@ Future main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,20 +32,7 @@ class MyApp extends StatelessWidget {
         '/EnvoyerQuizz': (context) => QuizzEnvoieScreen(),
         '/receptionquizzScreen': (context) => receptionquizzScreen(),
         '/authentification': (context) => Authentification(),
-        /*'/authentification' : (context) =>Scaffold(
-          body: StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData)
-              {
-                return QuizzEnvoieScreen();
-              }
-              else {
-                return Authentification();
-              }
-            },
-          ),
-        ),*/
+        '/signups': (context) => signups(),
       },
     );
   }
