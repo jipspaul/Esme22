@@ -18,7 +18,10 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
   List<CheckBoxStateManagerSendQuizz> notifications2 =
       MockQuizzNotification().getlistenotification();
   List<String> listequestionselectionner = [];
-
+  final emailController = TextEditingController();
+  String emaildoesntexist = "";
+  late bool emailIsValid=false ;
+  late bool emailIsCurrentUser=false ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +38,51 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                 "Sélectionne les questions que tu souhaites envoyer et appuie sur le bouton 'Sauvegarder'.",
                 textAlign: TextAlign.left),
             Divider(color: Colors.blue),
-
+            TextFormField(
+              controller: emailController,
+              decoration: InputDecoration(hintText: 'destinataire Email'),
+              validator: validateEmail,
+            ),
+            Text(emaildoesntexist, style: TextStyle(color: Colors.red)),
+            ElevatedButton(
+                child: Text('confirmer email', style: TextStyle(fontSize: 20)),
+                onPressed: () async {
+                  setState(() async{
+                    // Change the state of some variables here
+                  emailIsValid = await checkIfEmailInUse(emailController.text);
+                  final currentUser = FirebaseAuth.instance.currentUser!;
+                  emailIsCurrentUser = (currentUser.email != emailController.text);
+                  print('testechatgpt');
+                  print('emailController.text : '+ emailController.text);
+                  print('emailIsValid : ' + emailIsValid.toString());
+                  print('currentUser.email : ' + currentUser.email.toString());
+                  print('emailIsCurrentUser? : ' + emailIsCurrentUser.toString());
+                  print( (listequestionselectionner.length > 0 && emailIsCurrentUser && emailIsValid));
+                  print('fin');
+                  });
+                }),
             ElevatedButton(
               child: Text('Sauvegarder', style: TextStyle(fontSize: 20)),
-              onPressed: (listequestionselectionner.length > 0)
-                  ? () async{
+              onPressed: (listequestionselectionner.length > 0 && emailIsCurrentUser && emailIsValid)
+                  ? () async {
                       //if buttonenabled == true then pass a function otherwise pass "null"
                       print("Elevated Button One pressed");
-                      List<Question> listequestionchoisit = MockQuizzNotification().getlistechoit(listequestionselectionner);
+                      List<Question> listequestionchoisit =
+                          MockQuizzNotification()
+                              .getlistechoit(listequestionselectionner);
                       print(listequestionchoisit);
                       final currentUser = FirebaseAuth.instance.currentUser!;
-                      final doc=FirebaseFirestore.instance.collection('quizz_envoyer').doc('my-id');
-                      final json  ={'de':currentUser.email,'a':'alex','quoi':listequestionchoisit.toString()};
+                      final doc = FirebaseFirestore.instance
+                          .collection('quizz_envoyer')
+                          .doc('my-id');
+                      final json = {
+                        'de': currentUser.email,
+                        'a': emailController.text,
+                        'quoi': listequestionchoisit.toString()
+                      };
                       await doc.set(json);
                       Navigator.pushNamed(context, "/");
-              }
+                    }
                   : null,
             ),
             Text(
@@ -103,5 +136,46 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
         listequestionselectionner.clear();
       }
     });
+  }
+
+  // Returns true if email address is in use.
+  Future<bool> checkIfEmailInUse(String emailAddress) async {
+    try {
+      // Fetch sign-in methods for the email address
+      final list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(emailAddress);
+      // In case list is not empty
+      if (list.isNotEmpty) {
+        // Return true because there is an existing
+        // user using the email address
+        return true;
+      } else {
+        // Return false because email adress is not in use
+        return false;
+      }
+    } catch (error) {
+      // Handle error
+      // ...
+      return true;
+    }
+  }
+
+  Future<bool> validateEmaildouble(String email) async {
+    final currentUser = FirebaseAuth.instance.currentUser!;
+    if ( email==currentUser.email)
+    {
+      emaildoesntexist= "vous ne pouvez pas vous envoyer à vous meme le quizz";
+      print(emaildoesntexist);
+      return false;
+    }
+    return true;
+  }
+
+  String? validateEmail(String? formEmail) {
+    if (formEmail == null || formEmail.isEmpty)
+      return 'Email address is required';
+    String pattern = r'\w+@\w\.\w+';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(formEmail)) return 'invalid Email Address format';
+    return null;
   }
 }
