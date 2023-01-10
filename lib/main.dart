@@ -84,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemBuilder: (BuildContext context, int index) {
                         return ElevatedButton(
                             onPressed: () {
+                              print(menu[index].route);
                               Navigator.pushNamed(context, menu[index].route);
                             },
                             child: Text(menu[index].text));
