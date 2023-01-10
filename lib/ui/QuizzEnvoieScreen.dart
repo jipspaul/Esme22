@@ -47,22 +47,30 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
             ElevatedButton(
                 child: Text('confirmer email', style: TextStyle(fontSize: 20)),
                 onPressed: () async {
-                  setState(() async{
+                  setState((){});
                     // Change the state of some variables here
-                  emailIsValid = await checkIfEmailInUse(emailController.text);
+                  emailIsValid = await checkIfEmailInUse(emailController.text);//vrai
                   final currentUser = FirebaseAuth.instance.currentUser!;
                   emailIsCurrentUser = (currentUser.email != emailController.text);
+                  if((emailIsValid==false)||emailIsCurrentUser==false)
+                  {
+                    emaildoesntexist = "emailinvalide ou E=R";
+                  }
+                  else{
+                    emaildoesntexist = "";
+                  }
                   print('testechatgpt');
                   print('emailController.text : '+ emailController.text);
                   print('emailIsValid : ' + emailIsValid.toString());
                   print('currentUser.email : ' + currentUser.email.toString());
                   print('emailIsCurrentUser? : ' + emailIsCurrentUser.toString());
+                  print('inverseemailIsCurrentUser? : ' + (!emailIsCurrentUser).toString());
                   print( (listequestionselectionner.length > 0 && emailIsCurrentUser && emailIsValid));
                   print('fin');
-                  });
+
                 }),
             ElevatedButton(
-              child: Text('Sauvegarder', style: TextStyle(fontSize: 20)),
+              child: Text('Envoyer', style: TextStyle(fontSize: 20)),
               onPressed: (listequestionselectionner.length > 0 && emailIsCurrentUser && emailIsValid)
                   ? () async {
                       //if buttonenabled == true then pass a function otherwise pass "null"
