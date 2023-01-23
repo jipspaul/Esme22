@@ -81,14 +81,13 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                       print(listequestionchoisit);
                       final currentUser = FirebaseAuth.instance.currentUser!;
                       final doc = FirebaseFirestore.instance
-                          .collection('quizz_envoyer')
-                          .doc('my-id');
+                          .collection('quizz_envoyer');
                       final json = {
                         'de': currentUser.email,
                         'a': emailController.text,
                         'quoi': listequestionchoisit.toString()
                       };
-                      await doc.set(json);
+                      await doc.add(json);
                       Navigator.pushNamed(context, "/");
                     }
                   : null,
