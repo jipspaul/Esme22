@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
-import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
+//import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
 
 class DoQuizzScreen extends StatefulWidget {
@@ -9,14 +9,17 @@ class DoQuizzScreen extends StatefulWidget {
 }
 
 class _DoQuizzScreenState extends State<DoQuizzScreen> {
-  QuestionManager questionManager = QuestionManager();
-  var t = MockQuestionRepo();
-
+  //var t = MockQuestionRepo();
+  int indexquizzenvoyer=0;
+  int scorequizzenvoyer=0;
+  bool isPartyFinishenvoyer = false;
   @override
   Widget build(BuildContext context) {
-    print(t.getQuestionAsync());
-
+    final List<Question> listQuestions_liste = ModalRoute.of(context)?.settings.arguments as List<Question>;
+    QuestionManager questionManager = QuestionManager(questionsenvoyer: listQuestions_liste);
     Question question = questionManager.getCurrentQuestion();
+    print(question);
+    //print(t.getQuestionAsync());
 
     return questionManager.isPartyFinish
         ? partyFinishScreen(questionManager.getScore())
@@ -42,8 +45,11 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         return ElevatedButton(
                             onPressed: () {
+
+                              /* print("icicla");
+                              print(question.responses.keys.elementAt(index));
                               questionManager.submitResponse(
-                                  question.responses.keys.elementAt(index));
+                                  question.responses.keys.elementAt(index));*/
                               setState(() {});
                             },
                             child: Text(

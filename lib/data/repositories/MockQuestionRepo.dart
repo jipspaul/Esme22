@@ -14,7 +14,6 @@ class MockQuestionRepo implements IQuestionRepo {
   @override
   List<Question> getQuestion() {
     return [
-      //new philippe harddata
       Question("Quel pays?","https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1280px-Flag_of_Germany.svg.png","QuestionType.IMAGE", {"Allemagne": true,"Croatie": false,"Malte": false,"Lituanie": false}),
       Question("Quel pays?","https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/1280px-Flag_of_Austria.svg.png","QuestionType.IMAGE", {"Autriche": true,"Pologne": false,"Pays-Bas": false,"Irlande": false}),
       Question("Quel pays?","https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/1280px-Flag_of_Belgium.svg.png","QuestionType.IMAGE", {"Belgique": true,"Croatie": false,"Danemark": false,"Autriche": false}),

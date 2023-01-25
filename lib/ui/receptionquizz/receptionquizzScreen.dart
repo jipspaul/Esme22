@@ -74,7 +74,6 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
                                     // Code pour lancer le quizz
                                     print ("ici1");
                                     print('Quizz ${index + 1} : quoi ${quizzList[index]['quoi']}');
-                                    Navigator.pushNamed(context, "/DoQuizzScreen");
                                     print("ici2");
                                     var jsonString = quizzList[index]['quoi'];
                                     print("ici2.1");
@@ -82,6 +81,7 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
                                     print("ici2.2");
                                     ListQuestions listQuestions = ListQuestions.fromJson(jsonData);
                                     List<Question> listQuestions_liste =listQuestions.questionsList;
+                                    Navigator.pushNamed(context, '/DoQuizzScreen', arguments: listQuestions_liste);
                                     print("ici3");
                                     for (var question in listQuestions_liste) {
                                       print("Question : ${question.question}");
