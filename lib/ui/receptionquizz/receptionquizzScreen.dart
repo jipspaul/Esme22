@@ -72,23 +72,17 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
                                 ElevatedButton(
                                   onPressed: () {
                                     // Code pour lancer le quizz
-                                    print ("ici1");
-                                    print('Quizz ${index + 1} : quoi ${quizzList[index]['quoi']}');
-                                    print("ici2");
                                     var jsonString = quizzList[index]['quoi'];
-                                    print("ici2.1");
                                     var jsonData = jsonDecode(jsonString);
-                                    print("ici2.2");
                                     ListQuestions listQuestions = ListQuestions.fromJson(jsonData);
                                     List<Question> listQuestions_liste =listQuestions.questionsList;
                                     Navigator.pushNamed(context, '/DoQuizzScreen', arguments: listQuestions_liste);
-                                    print("ici3");
-                                    for (var question in listQuestions_liste) {
+                                    /*for (var question in listQuestions_liste) {
                                       print("Question : ${question.question}");
                                       print("Data : ${question.data}");
                                       print("Type : ${question.type}");
                                       print("Responses : ${question.responses}");
-                                    }
+                                    }*/
 
                                   },
                                   child: Text("C'est parti"),
