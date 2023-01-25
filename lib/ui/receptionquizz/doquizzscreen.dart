@@ -41,22 +41,16 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         return ElevatedButton(
                             onPressed: () {
-                              String reponsechoisit=question.responses.keys.elementAt(index);
-                              bool isCorrect = question.responses[reponsechoisit]!;
-                              print(reponsechoisit);
-                              print(isCorrect);
+                              bool isCorrect = question.responses[question.responses.keys.elementAt(index)]!;
                               if (isCorrect) {
-                                print(scorequizzenvoyer);
                                 scorequizzenvoyer = scorequizzenvoyer + 1;
-                                print(scorequizzenvoyer);
                                 if (indexquizzenvoyer < listQuestions_liste.length - 1) {
-                                  print(indexquizzenvoyer);
                                   indexquizzenvoyer = indexquizzenvoyer + 1;
-                                  print(indexquizzenvoyer);
                                 } else {
                                   isPartyFinishenvoyer = true;
                                 }
                               } else {
+
                               }
                               setState(() {});
                             },
