@@ -1,4 +1,3 @@
-import 'package:flutter_application_1/data/models/ListQuestions.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/data/repositories/IQuestionRepo.dart';
 import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
@@ -10,13 +9,11 @@ class QuestionManager {
   int? _score = 0;
   bool isPartyFinish = false;
 
-  QuestionManager({List<Question>? questionsenvoyer}) {
+  QuestionManager() {
     IQuestionRepo questionRepo = MockQuestionRepo();
     //_questions = questionRepo.getQuestion();
-    print(questionsenvoyer.toString());
-print("kjqdmlkskjflkjqdsmlfkmjlmkqsj");
-    print(questionRepo.getQuestion());
-    _questions = questionsenvoyer ?? questionRepo.getQuestion();
+
+    _questions = questionRepo.getQuestion();
 
     //print(ListQuestions(_questions).toJson().entries);
     _index = 0;

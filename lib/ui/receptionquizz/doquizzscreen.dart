@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
-//import 'package:flutter_application_1/data/repositories/MockQuestionRepo.dart';
-import 'package:flutter_application_1/domain/QuestionManager.dart';
+
 
 class DoQuizzScreen extends StatefulWidget {
   @override
@@ -9,20 +8,17 @@ class DoQuizzScreen extends StatefulWidget {
 }
 
 class _DoQuizzScreenState extends State<DoQuizzScreen> {
-  //var t = MockQuestionRepo();
   int indexquizzenvoyer=0;
   int scorequizzenvoyer=0;
   bool isPartyFinishenvoyer = false;
   @override
   Widget build(BuildContext context) {
     final List<Question> listQuestions_liste = ModalRoute.of(context)?.settings.arguments as List<Question>;
-    QuestionManager questionManager = QuestionManager(questionsenvoyer: listQuestions_liste);
-    Question question = questionManager.getCurrentQuestion();
-    print(question);
-    //print(t.getQuestionAsync());
 
-    return questionManager.isPartyFinish
-        ? partyFinishScreen(questionManager.getScore())
+    Question question = listQuestions_liste[indexquizzenvoyer];
+
+    return isPartyFinishenvoyer
+        ? partyFinishScreen(scorequizzenvoyer.toString())
         : Scaffold(
       appBar: AppBar(
         title: const Text('QUIZZ'),
@@ -30,7 +26,7 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
       body: Center(
           child: Column(
             children: [
-              Flexible(child: Text("${questionManager.getScore()}")),
+              Flexible(child: Text("${scorequizzenvoyer}")),
               Flexible(
                   flex: 1,
                   child: Text(
@@ -45,11 +41,23 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         return ElevatedButton(
                             onPressed: () {
-
-                              /* print("icicla");
-                              print(question.responses.keys.elementAt(index));
-                              questionManager.submitResponse(
-                                  question.responses.keys.elementAt(index));*/
+                              String reponsechoisit=question.responses.keys.elementAt(index);
+                              bool isCorrect = question.responses[reponsechoisit]!;
+                              print(reponsechoisit);
+                              print(isCorrect);
+                              if (isCorrect) {
+                                print(scorequizzenvoyer);
+                                scorequizzenvoyer = scorequizzenvoyer + 1;
+                                print(scorequizzenvoyer);
+                                if (indexquizzenvoyer < listQuestions_liste.length - 1) {
+                                  print(indexquizzenvoyer);
+                                  indexquizzenvoyer = indexquizzenvoyer + 1;
+                                  print(indexquizzenvoyer);
+                                } else {
+                                  isPartyFinishenvoyer = true;
+                                }
+                              } else {
+                              }
                               setState(() {});
                             },
                             child: Text(
