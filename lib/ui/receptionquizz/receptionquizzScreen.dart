@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/models/ListQuestions.dart';
+import 'package:flutter_application_1/data/models/Question.dart';
 
 class receptionquizzScreen extends StatefulWidget {
   @override
@@ -68,6 +72,24 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
                                 ElevatedButton(
                                   onPressed: () {
                                     // Code pour lancer le quizz
+                                    print ("ici1");
+                                    print('Quizz ${index + 1} : quoi ${quizzList[index]['quoi']}');
+                                    Navigator.pushNamed(context, "/DoQuizzScreen");
+                                    print("ici2");
+                                    var jsonString = quizzList[index]['quoi'];
+                                    print("ici2.1");
+                                    var jsonData = jsonDecode(jsonString);
+                                    print("ici2.2");
+                                    ListQuestions listQuestions = ListQuestions.fromJson(jsonData);
+                                    List<Question> listQuestions_liste =listQuestions.questionsList;
+                                    print("ici3");
+                                    for (var question in listQuestions_liste) {
+                                      print("Question : ${question.question}");
+                                      print("Data : ${question.data}");
+                                      print("Type : ${question.type}");
+                                      print("Responses : ${question.responses}");
+                                    }
+
                                   },
                                   child: Text("C'est parti"),
                                 ),

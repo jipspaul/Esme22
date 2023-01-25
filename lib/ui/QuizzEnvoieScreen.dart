@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/models/ListQuestions.dart';
 import 'package:flutter_application_1/data/models/Question.dart';
 import 'package:flutter_application_1/domain/CheckBoxStateManagerSendQuizz.dart';
 import 'package:flutter_application_1/domain/QuestionManager.dart';
@@ -79,13 +82,18 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
                           MockQuizzNotification()
                               .getlistechoit(listequestionselectionner);
                       print(listequestionchoisit);
+                      print("ici");
+                      ListQuestions listQuestions = ListQuestions(listequestionchoisit);
+                      var jsonData = jsonEncode(listQuestions);
+                      print(jsonData);
+                      print("ici1.1");
                       final currentUser = FirebaseAuth.instance.currentUser!;
                       final doc = FirebaseFirestore.instance
                           .collection('quizz_envoyer');
                       final json = {
                         'de': currentUser.email,
                         'a': emailController.text,
-                        'quoi': listequestionchoisit.toString()
+                        'quoi': jsonData
                       };
                       await doc.add(json);
                       Navigator.pushNamed(context, "/");

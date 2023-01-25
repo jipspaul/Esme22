@@ -6,6 +6,7 @@ import 'package:flutter_application_1/ui/QuizzScreen.dart';
 import 'package:flutter_application_1/ui/authentificate/signUpScreen.dart';
 import 'package:flutter_application_1/ui/maps/mapsMobile.dart';
 import 'package:flutter_application_1/ui/QuizzEnvoieScreen.dart';
+import 'package:flutter_application_1/ui/receptionquizz/doquizzscreen.dart';
 import 'package:flutter_application_1/ui/receptionquizz/receptionquizzScreen.dart';
 import 'package:flutter_application_1/ui/authentificate/authenticateScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/receptionquizzScreen': (context) => receptionquizzScreen(),
         '/authentification': (context) => Authentification(),
         '/signups': (context) => signups(),
+        '/DoQuizzScreen':(context)=> DoQuizzScreen(),
       },
     );
   }
