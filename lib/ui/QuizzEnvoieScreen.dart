@@ -34,9 +34,6 @@ class _QuizzEnvoieScreenState extends State<QuizzEnvoieScreen> {
       body: Center(
         child: ListView(
           children: [
-            Text("Envoie d'un quizz",
-                textAlign: TextAlign.center, style: TextStyle(fontSize: 25)),
-            Divider(color: Colors.blue),
             Text(
                 "Sélectionne les questions que tu souhaites envoyer et appuie sur le bouton 'Sauvegarder'.",
                 textAlign: TextAlign.left),

@@ -36,6 +36,7 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     final textSize = size.width / 20;
     return Scaffold(
@@ -49,6 +50,7 @@ class _receptionquizzScreenState extends State<receptionquizzScreen> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: <Widget>[
+
                       Text(
                         'Quizz ${index + 1} : de ${quizzList[index]['de']}',
                         style: TextStyle(fontSize: textSize),

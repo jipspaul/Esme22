@@ -99,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemBuilder: (BuildContext context, int index) {
                       return ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, menu[index].route);
+                           String? curuseremail=FirebaseAuth.instance.currentUser?.email;
+                            Navigator.pushNamed(context, menu[index].route, arguments:curuseremail );
                           },
                           child: Text(menu[index].text));
                     },
@@ -107,6 +108,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
+
+            Flexible(
+
+              child: StreamBuilder<User?>(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  // Vérifiez si l'utilisateur est connecté avant d'afficher le bouton
+                  if (snapshot.hasData) {
+                    return Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Connecté sous ',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Text(
+                            '${FirebaseAuth.instance.currentUser?.email}',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return Text('');
+                }
+              ),
+            ),
+
             Flexible(
               child: StreamBuilder<User?>(
                 stream: FirebaseAuth.instance.authStateChanges(),

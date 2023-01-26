@@ -26,7 +26,8 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
       body: Center(
           child: Column(
             children: [
-              Flexible(child: Text("${scorequizzenvoyer}")),
+              Flexible(child: Text("question n°${indexquizzenvoyer}/${listQuestions_liste.length}")),
+              Flexible(child: Text("score ${scorequizzenvoyer}")),
               Flexible(
                   flex: 1,
                   child: Text(
@@ -44,13 +45,12 @@ class _DoQuizzScreenState extends State<DoQuizzScreen> {
                               bool isCorrect = question.responses[question.responses.keys.elementAt(index)]!;
                               if (isCorrect) {
                                 scorequizzenvoyer = scorequizzenvoyer + 1;
-                                if (indexquizzenvoyer < listQuestions_liste.length - 1) {
-                                  indexquizzenvoyer = indexquizzenvoyer + 1;
-                                } else {
-                                  isPartyFinishenvoyer = true;
-                                }
                               } else {
-
+                              }
+                              if (indexquizzenvoyer < listQuestions_liste.length - 1) {
+                                indexquizzenvoyer = indexquizzenvoyer + 1;
+                              } else {
+                                isPartyFinishenvoyer = true;
                               }
                               setState(() {});
                             },
